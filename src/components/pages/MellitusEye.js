@@ -8,7 +8,9 @@ import {
   Radio,
   TextArea,
   Checkbox,
-  Segment
+  Segment,
+  Modal,
+  Icon
 } from "semantic-ui-react";
 
 const options = [
@@ -17,10 +19,12 @@ const options = [
 ];
 
 class MellitusEye extends React.Component {
-  state = {};
+  state = { open: false };
+  show = () => this.setState({ open: true });
+  close = () => this.setState({ open: false });
   handleChange = (e, { value }) => this.setState({ value });
   render() {
-    const { value } = this.state;
+    const { value, open } = this.state;
     return (
       <div>
         <Segment style={{ marginTop: "1em" }}>
@@ -77,11 +81,25 @@ class MellitusEye extends React.Component {
               control={Checkbox}
               label="I agree to the Terms and Conditions"
             />
-            <Button type="submit" primary>
+            <Button primary onClick={() => this.show()}>
               Submit
             </Button>
           </Form>
         </Segment>
+        <Modal size="tiny" open={open} onClose={this.close} closeIcon>
+          <Modal.Header>Your Score is 71.123</Modal.Header>
+          <Modal.Content style={{ textAlign: "center" }}>
+            <Icon
+              circular
+              inverted
+              color="green"
+              size="huge"
+              name="check circle outline"
+            />
+            <br />
+            <h4>Your diabetes is under control</h4>
+          </Modal.Content>
+        </Modal>
       </div>
     );
   }
