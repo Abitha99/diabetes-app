@@ -7,11 +7,8 @@ export const App = () => (
   <div>
     <Route exact path="/" component={HomePage} />
     <Route exact path="/home" component={DiabetesHomePage} />
-    <Route exact path="/mellitus" component={DiabetesHomePage} />
-    <Route exact path="/insipidus" component={DiabetesHomePage} />
-    <Route exact path="/mellitus/eye" component={DiabetesHomePage} />
-    <Route exact path="/mellitus/cardiac" component={DiabetesHomePage} />
-    <Route exact path="/mellitus/kidney" component={DiabetesHomePage} />
+    <Route exact path="/cardiac" component={DiabetesHomePage} />
+    <Route exact path="/kidney" component={DiabetesHomePage} />
   </div>
 );
 

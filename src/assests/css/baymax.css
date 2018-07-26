@@ -1,0 +1,14 @@
+.landpage-image{
+    background-image: url(../images/baymax_cover.jpg) !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
+.conversation-container > .header {
+    background-color: black;
+}
+
+.message > .response {
+    background-color: black;
+    color: white;
+}

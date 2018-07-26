@@ -1,29 +1,30 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Container, Button } from "semantic-ui-react";
+import { Container, Button, Divider } from "semantic-ui-react";
 
-class DiabetesHomePage extends React.Component {
+class DiabetesType extends React.Component {
   state = {};
-  handleInsipidusClick() {
-    this.props.history.push(`/insipidus`);
+  handleCardiacClick() {
+    this.props.history.push(`/cardiac`);
   }
-  handleMellitusClick() {
-    this.props.history.push(`/mellitus`);
+  handleKidneyClick() {
+    this.props.history.push(`/kidney`);
   }
   render() {
     return (
       <div>
+        <Divider />
         <Container textAlign="center" style={{ marginTop: "6em" }}>
-          <h3> Choose the Diabetes type </h3>
+          <h3>Predict my precent of chances for</h3>
           <Button
-            content="Mellitus"
+            content="Heart/Cardiac Disease"
             primary
-            onClick={() => this.handleMellitusClick()}
+            onClick={() => this.handleCardiacClick()}
           />
           <Button
-            content="Insipidus"
+            content="Chronic Kidney Disease"
             primary
-            onClick={() => this.handleInsipidusClick()}
+            onClick={() => this.handleKidneyClick()}
           />
         </Container>
       </div>
@@ -31,4 +32,4 @@ class DiabetesHomePage extends React.Component {
   }
 }
 
-export default withRouter(DiabetesHomePage);
+export default withRouter(DiabetesType);

@@ -12,6 +12,7 @@ import {
   Modal,
   Icon
 } from "semantic-ui-react";
+import DiabetesType from "../pages/DiabetesType";
 
 const options = [
   { key: "m", text: "Male", value: "male" },
@@ -27,6 +28,7 @@ class MellitusCardiac extends React.Component {
     const { value, open } = this.state;
     return (
       <div>
+        <DiabetesType />
         <Segment style={{ marginTop: "1em" }}>
           <h2> Mellitus Cardiac - Enter the details in the form </h2>
           <Form>

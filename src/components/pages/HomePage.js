@@ -8,6 +8,7 @@ import {
   Message,
   Segment
 } from "semantic-ui-react";
+import "../../assests/css/baymax.css";
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ export default class HomePage extends Component {
   render() {
     return (
       <Segment
+        className="landpage-image"
         inverted
         textAlign="center"
         style={{ minHeight: 700, padding: "1em 0em" }}
@@ -29,25 +31,27 @@ export default class HomePage extends Component {
         <Container text>
           <Header
             as="h1"
-            content="Diabetes Application"
+            content="Baymax"
+            icon="heartbeat"
+            color="red"
             inverted
             style={{
               fontSize: "4em",
               fontWeight: "normal",
-              marginBottom: "0.5em",
-              marginTop: "1.2em"
+              marginTop: "0.7em",
+              paddingLeft: "2.5em"
             }}
           />
-          {/* <Header
-              as='h2'
-              content='Do whatever you want when you want to.'
-              inverted
-              style={{
-                fontSize: mobile ? '1.5em' : '1.7em',
-                fontWeight: 'normal',
-                marginTop: mobile ? '0.5em' : '1.5em',
-              }}
-            /> */}
+          <Header
+            as="h2"
+            content="AI powered personal healthcare companion"
+            inverted
+            style={{
+              fontSize: "1.7em",
+              fontWeight: "normal",
+              marginBottom: "1.4em"
+            }}
+          />
           <div className="login-form">
             <style>{`
         body > div,
@@ -92,7 +96,7 @@ export default class HomePage extends Component {
                   </Segment>
                 </Form>
                 <Message>
-                  New to us? <a href="#">Sign Up</a>
+                  New to our application? <a href="#">Sign Up</a>
                 </Message>
               </Grid.Column>
             </Grid>

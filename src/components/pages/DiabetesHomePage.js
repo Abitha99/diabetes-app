@@ -8,9 +8,6 @@ import {
 } from "react-router-dom";
 import { Container, Menu, Dropdown, Icon } from "semantic-ui-react";
 import DiabetesType from "../pages/DiabetesType";
-import InsipidusDiabetesType from "../pages/InsipidusDiabetesType";
-import MellitusDiabetesType from "../pages/MellitusDiabetesType";
-import MellitusEye from "../pages/MellitusEye";
 import MellitusCardiac from "../pages/MellitusCardiac";
 import MellitusKidney from "../pages/MellitusKidney";
 
@@ -24,31 +21,7 @@ const routes = [
     )
   },
   {
-    path: "/insipidus",
-    main: () => (
-      <div>
-        <InsipidusDiabetesType />
-      </div>
-    )
-  },
-  {
-    path: "/mellitus",
-    main: () => (
-      <div>
-        <MellitusDiabetesType />
-      </div>
-    )
-  },
-  {
-    path: "/mellitus/eye",
-    main: () => (
-      <div>
-        <MellitusEye />
-      </div>
-    )
-  },
-  {
-    path: "/mellitus/cardiac",
+    path: "/cardiac",
     main: () => (
       <div>
         <MellitusCardiac />
@@ -56,7 +29,7 @@ const routes = [
     )
   },
   {
-    path: "/mellitus/kidney",
+    path: "/kidney",
     main: () => (
       <div>
         <MellitusKidney />
@@ -85,13 +58,24 @@ class DiabetesHomePage extends React.Component {
               }}
               borderless
             >
-              <Menu.Item header style={{ fontSize: "20px" }}>
-                <Link to="/home"> Diabetes App </Link>
+              <Menu.Item
+                header
+                style={{ fontSize: "20px", paddingRight: "0em" }}
+              >
+                <Link to="/home">
+                  <Icon inverted name="heartbeat" size="large" />
+                </Link>
+              </Menu.Item>
+              <Menu.Item
+                header
+                style={{ fontSize: "23px", paddingLeft: "0.5em" }}
+              >
+                <Link to="/home">Baymax</Link>
               </Menu.Item>
               <Menu.Menu position="right">
                 <Dropdown
                   pointing
-                  style={{ color: "white", paddingTop: "1em" }}
+                  style={{ color: "white", paddingTop: "1.4em" }}
                   trigger={
                     <Icon inverted name="user circle outline" size="big" />
                   }
