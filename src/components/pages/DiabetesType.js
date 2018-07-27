@@ -17,14 +17,14 @@ class DiabetesType extends React.Component {
         <Container textAlign="center" style={{ marginTop: "6em" }}>
           <h3>Predict my precent of chances for</h3>
           <Button
-            content="Heart/Cardiac Disease"
-            primary
-            onClick={() => this.handleCardiacClick()}
-          />
-          <Button
             content="Chronic Kidney Disease"
             primary
             onClick={() => this.handleKidneyClick()}
+          />
+          <Button
+            content="Heart/Cardiac Disease"
+            primary
+            onClick={() => this.handleCardiacClick()}
           />
         </Container>
       </div>

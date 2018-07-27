@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 import {
   Form,
   Button,
@@ -12,7 +13,7 @@ import {
 import DiabetesType from "../pages/DiabetesType";
 import InlineError from "../messages/InlineError";
 
-const sugarOptions = [
+const suOptions = [
   { key: 1, text: "0", value: "0" },
   { key: 2, text: "1", value: "1" },
   { key: 3, text: "2", value: "2" },
@@ -39,12 +40,12 @@ const pcOptions = [
 const initialState = {
   data: {
     age: "",
-    bloodPressure: "",
-    sugar: "",
-    hemoglobin: "",
+    bp: "",
+    su: "",
+    hemo: "",
     dm: "",
-    albumin: "",
-    bloodUrea: "",
+    al: "",
+    bu: "",
     htn: "",
     pc: "",
     rbcc: ""
@@ -52,7 +53,8 @@ const initialState = {
   loading: false,
   errors: {},
   message: 1,
-  open: false
+  open: false,
+  predictedResult: ""
 };
 
 class MellitusKidney extends React.Component {
@@ -65,9 +67,9 @@ class MellitusKidney extends React.Component {
       data: { ...this.state.data, [e.target.name]: e.target.value }
     });
 
-  onSugarChange = (e, { value }) =>
+  onsuChange = (e, { value }) =>
     this.setState({
-      data: { ...this.state.data, sugar: value }
+      data: { ...this.state.data, su: value }
     });
 
   onDmChange = (e, { value }) =>
@@ -75,9 +77,9 @@ class MellitusKidney extends React.Component {
       data: { ...this.state.data, dm: value }
     });
 
-  onAlbuminChange = (e, { value }) =>
+  onalChange = (e, { value }) =>
     this.setState({
-      data: { ...this.state.data, albumin: value }
+      data: { ...this.state.data, al: value }
     });
 
   onHtnChange = (e, { value }) =>
@@ -97,18 +99,18 @@ class MellitusKidney extends React.Component {
       this.setState({ loading: true });
       this.setState({ open: true });
       this.setState({ loading: false });
-      // api.jobpostings
-      //   .postJob(this.state.data)
-      //   .then(() => {
-      //     this.setState({ open: true });
-      //   })
-      //   .catch(err =>
-      //     this.setState({
-      //       errors: err.response,
-      //       loading: false
-      //     })
-      //   );
-      console.log(this.state.data);
+      axios
+        .post(`http://localhost:5000/kidney`, this.state.data)
+        .then(result => {
+          this.setState({ ...this.state, predictedResult: result.data });
+          this.setState({ open: true });
+        })
+        .catch(err =>
+          this.setState({
+            errors: err.response,
+            loading: false
+          })
+        );
     }
   };
 
@@ -121,20 +123,20 @@ class MellitusKidney extends React.Component {
     if (!data.age) {
       errors.age = "Age field is required";
     }
-    if (!data.bloodPressure) {
-      errors.bloodPressure = "Blood Pressure field is required";
+    if (!data.bp) {
+      errors.bp = "Blood Pressure field is required";
     }
-    if (!data.sugar) {
-      errors.sugar = "Sugar field is required";
+    if (!data.su) {
+      errors.su = "su field is required";
     }
-    if (!data.hemoglobin) {
-      errors.hemoglobin = "Hemoglobin field is required";
+    if (!data.hemo) {
+      errors.hemo = "hemo field is required";
     }
     if (!data.dm) {
       errors.dm = "Diabetes Mellitus field is required";
     }
-    if (!data.bloodUrea) {
-      errors.bloodUrea = "Blood Urea field is required";
+    if (!data.bu) {
+      errors.bu = "Blood Urea field is required";
     }
     if (!data.rbcc) {
       errors.rbcc = "Red Blood cells count field is required";
@@ -165,55 +167,53 @@ class MellitusKidney extends React.Component {
                 />
                 {errors.age && <InlineError text={errors.age} />}
               </Form.Field>
-              <Form.Field error={!!errors.bloodPressure}>
-                <label htmlFor="bloodPressure">
+              <Form.Field error={!!errors.bp}>
+                <label htmlFor="bp">
                   Blood Pressure <span>*</span>
                 </label>
                 <Input
                   type="number"
                   min="0"
-                  id="bloodPressure"
-                  name="bloodPressure"
+                  id="bp"
+                  name="bp"
                   placeholder="Blood Pressure"
-                  value={data.bloodPressure}
+                  value={data.bp}
                   onChange={this.onChange}
                   label={{ content: "mm/Hg" }}
                   labelPosition="right"
                 />
-                {errors.bloodPressure && (
-                  <InlineError text={errors.bloodPressure} />
-                )}
+                {errors.bp && <InlineError text={errors.bp} />}
               </Form.Field>
               <Form.Field>
-                <label htmlFor="sugar">
-                  Sugar <span>*</span>
+                <label htmlFor="su">
+                  su <span>*</span>
                 </label>
                 <Dropdown
-                  placeholder="Sugar value"
+                  placeholder="su value"
                   fluid
                   selection
-                  value={data.sugar}
-                  onChange={this.onSugarChange}
-                  options={sugarOptions}
-                  defaultValue={sugarOptions[0].value}
+                  value={data.su}
+                  onChange={this.onsuChange}
+                  options={suOptions}
+                  defaultValue={suOptions[0].value}
                 />
               </Form.Field>
-              <Form.Field error={!!errors.hemoglobin}>
-                <label htmlFor="hemoglobin">
-                  Hemoglobin <span>*</span>
+              <Form.Field error={!!errors.hemo}>
+                <label htmlFor="hemo">
+                  hemo <span>*</span>
                 </label>
                 <Input
                   type="number"
                   min="0"
-                  id="hemoglobin"
-                  name="hemoglobin"
-                  placeholder="Hemoglobin"
-                  value={data.hemoglobin}
+                  id="hemo"
+                  name="hemo"
+                  placeholder="hemo"
+                  value={data.hemo}
                   onChange={this.onChange}
                   label={{ content: "gms" }}
                   labelPosition="right"
                 />
-                {errors.hemoglobin && <InlineError text={errors.hemoglobin} />}
+                {errors.hemo && <InlineError text={errors.hemo} />}
               </Form.Field>
             </Form.Group>
             <Form.Group widths={3}>
@@ -231,35 +231,35 @@ class MellitusKidney extends React.Component {
                 />
               </Form.Field>
               <Form.Field>
-                <label htmlFor="albumin">
-                  Albumin <span>*</span>
+                <label htmlFor="al">
+                  al <span>*</span>
                 </label>
                 <Dropdown
-                  placeholder="albumin value"
+                  placeholder="al value"
                   fluid
                   selection
-                  value={data.albumin}
-                  onChange={this.onAlbuminChange}
-                  options={sugarOptions}
-                  defaultValue={sugarOptions[0].value}
+                  value={data.al}
+                  onChange={this.onalChange}
+                  options={suOptions}
+                  defaultValue={suOptions[0].value}
                 />
               </Form.Field>
-              <Form.Field error={!!errors.bloodUrea}>
-                <label htmlFor="bloodUrea">
+              <Form.Field error={!!errors.bu}>
+                <label htmlFor="bu">
                   Blood Urea <span>*</span>
                 </label>
                 <Input
                   type="number"
                   min="0"
-                  id="bloodUrea"
-                  name="bloodUrea"
+                  id="bu"
+                  name="bu"
                   placeholder="Blood Urea"
-                  value={data.bloodUrea}
+                  value={data.bu}
                   onChange={this.onChange}
                   label={{ content: "mgs/dl" }}
                   labelPosition="right"
                 />
-                {errors.bloodUrea && <InlineError text={errors.bloodUrea} />}
+                {errors.bu && <InlineError text={errors.bu} />}
               </Form.Field>
               <Form.Field>
                 <label htmlFor="htn">
@@ -315,18 +315,36 @@ class MellitusKidney extends React.Component {
           </Form>
         </Segment>
         <Modal size="tiny" open={open} onClose={this.close} closeIcon>
-          <Modal.Header>Your Score is 24.123</Modal.Header>
-          <Modal.Content style={{ textAlign: "center" }}>
-            <Icon
-              circular
-              inverted
-              color="yellow"
-              size="huge"
-              name="warning sign"
-            />
-            <br />
-            <h4>Your diabetes is not under control</h4>
-          </Modal.Content>
+          <Modal.Header>
+            You have {this.state.predictedResult} % chance to have kidney issues
+          </Modal.Header>
+
+          {this.state.predictedResult > 50 && (
+            <Modal.Content style={{ textAlign: "center" }}>
+              <Icon
+                circular
+                inverted
+                color="yellow"
+                size="huge"
+                name="warning sign"
+              />
+              <br />
+              <h3>You are advised to visit a doctor immediately</h3>
+            </Modal.Content>
+          )}
+          {this.state.predictedResult <= 50 && (
+            <Modal.Content style={{ textAlign: "center" }}>
+              <Icon
+                circular
+                inverted
+                color="green"
+                size="huge"
+                name="check circle"
+              />
+              <br />
+              <h3>You need not consult a doctor anytime soon</h3>
+            </Modal.Content>
+          )}
         </Modal>
       </div>
     );
